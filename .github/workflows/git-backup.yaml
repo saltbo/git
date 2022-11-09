@@ -1,0 +1,33 @@
+name: Backup
+
+on:
+  workflow_dispatch:    
+  schedule:
+    - cron:  '05 02 * * *'
+
+jobs:
+  gitrepos-backupto-s3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: 'amitsaha/gitbackup'
+      - name: Setup
+        run: |
+          go build
+ 
+      - name: Get GitHub User Data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gitbackup -service github -use-https-clone -ignore-fork -ignore-private -github.repoType owner -bare
+
+      - name: Push to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY}}
+          AWS_DEFAULT_REGION: 'ap-southeast-2'
+        run: |
+          sudo gem install gitkeep
+          gitkeep ~/.gitbackup/github.com/
+          aws --endpoint-url http://s3.bj.bcebos.com s3 sync ~/.gitbackup/github.com/. s3://bj-pv-bonalab/pvc-089e6622-2e38-47fc-9cd0-1694e7f7784f/csi-fs
