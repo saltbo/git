@@ -30,4 +30,4 @@ jobs:
         run: |
           sudo gem install gitkeep
           gitkeep ~/.gitbackup/github.com/
-          aws --endpoint-url http://s3.bj.bcebos.com s3 sync ~/.gitbackup/github.com/. s3://bj-pv-bonalab/pvc-089e6622-2e38-47fc-9cd0-1694e7f7784f/csi-fs
+          aws --endpoint-url https://cos.ap-beijing.myqcloud.com s3 sync ~/.gitbackup/github.com/. s3://saltbo-1255970412/pvc-9e2337bc-df3e-43f9-a6b7-8a9b3b4ad079_default_git
