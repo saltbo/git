@@ -3,7 +3,7 @@ name: Backup
 on:
   workflow_dispatch:    
   schedule:
-    - cron:  '05 22 * * *'
+    - cron:  '05 17 * * *'
 
 jobs:
   gitrepos-backupto-s3:
