@@ -18,7 +18,7 @@ jobs:
  
       - name: Get GitHub User Data
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           ./gitbackup -service github -use-https-clone -ignore-fork -ignore-private -github.repoType owner -bare
 
