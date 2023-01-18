@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          ./gitbackup -service github -use-https-clone -ignore-fork -ignore-private -github.repoType owner -bare
+          ./gitbackup -service github -use-https-clone -ignore-fork -ignore-private -github.repoType owner -github.namespaceWhitelist "saltbo,bonaysoft" -bare
 
       - name: Push to S3
         env:
